@@ -16,10 +16,10 @@ const __dirname=path.resolve();
 //extract json data from body
 app.use(express.json())
 app.use(cookieParser());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({exatended:true}));
 
 app.use(cors({
-    origin:["http://localhost:5173","https://chatx-zdke.onrender.com/"],
+    origin:["http://localhost:5173","https://chatx-zdke.onrender.com"],
     credentials:true
 }))
 app.use("/api/auth",authRoutes);
