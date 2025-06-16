@@ -36,8 +36,8 @@ export const getMessages=async(req,res)=>{
 export const sendMessages=async(req,res)=>{
     try {
         const {text,image}=req.body;
-        const {id:receiverId}=req.params
-        const senderId=req.user._id
+        const {id:receiverId}=req.params;
+        const senderId=req.user._id;
         let imageUrl;
         if(image){
             //uploading base64 image to cloudinary
@@ -51,7 +51,7 @@ export const sendMessages=async(req,res)=>{
             image: imageUrl
         })
         await newMessage.save()
-
+        const senderSocketId=getReceiverSocketId(senderId);
         const receiverSocketId=getReceiverSocketId(receiverId);
         if(receiverSocketId){
             io.to(senderSocketId).emit("newMessage", newMessage);
