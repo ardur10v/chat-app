@@ -1,9 +1,13 @@
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/useAuthStore'
 import { MessageSquare, Settings, User, LogOut } from 'lucide-react'
 
 const Navbar = () => {
     const { logout, authUser } = useAuthStore()
+    const handleLogout=async()=>{
+        await logout();
+        navigate("/signup")
+    }
     console.log(authUser);
     return (
         <header className="bg-base-100 border-b border-base-300 fixed w-full top-0 z-40 backdrop-blur-lg bg-base-100/80 ">
@@ -14,7 +18,7 @@ const Navbar = () => {
                             <div className="size-9 rounded-lg bg-primary/10 flex items-center justify-center">
                                 <MessageSquare className="w-5 h-5 text-primary" />
                             </div>
-                            <h1 className="text-lg font-bold">Chat</h1>
+                            <h1 className="text-lg font-bold">ChatX</h1>
                         </Link>
                     </div>
                     <div className="flex items-center gap-2">
@@ -31,10 +35,10 @@ const Navbar = () => {
                                     <User className="size-5" />
                                     <span className="hidden sm:inline">Profile</span>
                                 </Link>
-                                <Link to={"/login"} className="flex gap-2 items-center" onClick={logout}>
-                                    <LogOut className="size-5" />
+                                <button className="btn btn-sm gap-2" onClick={handleLogout}>
+                                    <LogOut className="size-5"/>
                                     <span className="hidden sm:inline">Logout</span>
-                                </Link>
+                                </button>
                             </>
                         )}
                     </div>
