@@ -1,10 +1,11 @@
-import { Link,useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/useAuthStore'
 import { MessageSquare, Settings, User, LogOut } from 'lucide-react'
 
 const Navbar = () => {
+    const navigate=useNavigate()
     const { logout, authUser } = useAuthStore()
-    const handleLogout=async()=>{
+    const handleLogout = async () => {
         await logout();
         navigate("/signup")
     }
@@ -36,7 +37,7 @@ const Navbar = () => {
                                     <span className="hidden sm:inline">Profile</span>
                                 </Link>
                                 <button className="btn btn-sm gap-2" onClick={handleLogout}>
-                                    <LogOut className="size-5"/>
+                                    <LogOut className="size-5" />
                                     <span className="hidden sm:inline">Logout</span>
                                 </button>
                             </>
