@@ -20,11 +20,11 @@ const ChatHeader = () => {
             <p className="text-sm text-base-content/70">
                 {onlineUsers.includes(selectedUser._id)?"online":"offline"}
             </p>
-            <button className="flex gap-2 items-center" onClick={()=>setSelectedUser(null)}>
-                <X/>
-            </button>
           </div>
         </div>
+        <button className="flex gap-2 items-center" onClick={()=>setSelectedUser(null)}>
+                <X/>
+            </button>
       </div>
     </div>
   )
