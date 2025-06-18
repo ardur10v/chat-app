@@ -31,10 +31,10 @@ const Navbar = () => {
                                     <User className="size-5" />
                                     <span className="hidden sm:inline">Profile</span>
                                 </Link>
-                                <button className="flex gap-2 items-center" onClick={logout}>
+                                <Link to={"/login"} className="flex gap-2 items-center" onClick={logout}>
                                     <LogOut className="size-5" />
                                     <span className="hidden sm:inline">Logout</span>
-                                </button>
+                                </Link>
                             </>
                         )}
                     </div>
