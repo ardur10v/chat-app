@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useAuthStore } from '../store/useAuthStore';
-import { MessageSquare, User,Mail,Lock, Eye, Loader2} from "lucide-react"
-import {Link,useNavigate} from "react-router-dom"
-import {toast,Toaster} from "react-hot-toast"
+import { MessageSquare, User, Mail, Lock, Eye, EyeOff, Loader2 } from "lucide-react"
+import { Link, useNavigate } from "react-router-dom"
+import { toast, Toaster } from "react-hot-toast"
 
 const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,7 +12,7 @@ const SignupPage = () => {
     password: "",
   });
   const { signup, isSigningUp } = useAuthStore();
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
   const validateForm = () => {
     const { name, email, password } = formData;
@@ -41,10 +41,10 @@ const SignupPage = () => {
     return true
   }
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    const success=validateForm()
-    if(success){
+    const success = validateForm()
+    if (success) {
       console.log("Form validated, submitting")
       await signup(formData);
       navigate("/profile")
@@ -58,7 +58,7 @@ const SignupPage = () => {
         <div className="w-full max-w-md space-y-8 mt-8">
           <div className="text-center mb-8">
             <div className="flex flex-col items-center gap-2 group">
-            {/* logo */}
+              {/* logo */}
               <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                 <MessageSquare className="size-6 text-primary" />
               </div>
@@ -110,7 +110,7 @@ const SignupPage = () => {
                   <Lock className="size-5 text-base-content/40"></Lock>
                 </div>
                 <input
-                  type={showPassword?"text":"password"}
+                  type={showPassword ? "text" : "password"}
                   className={`input input-bordered w-full pl-10`}
                   placeholder=""
                   value={formData.password}
@@ -119,23 +119,23 @@ const SignupPage = () => {
                 <button
                   type="button"
                   className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                  onClick={()=>setShowPassword(!showPassword)}
+                  onClick={() => setShowPassword(!showPassword)}
                 >
-                {showPassword?(
-                  <EyeOff className="size-5 text-base-content/40"/>
-                ):(
-                  <Eye className="size-5 text-base-content/40"/>
-                )}
+                  {showPassword ? (
+                    <EyeOff className="size-5 text-base-content/40" />
+                  ) : (
+                    <Eye className="size-5 text-base-content/40" />
+                  )}
                 </button>
               </div>
             </div>
             <button type="submit" className="btn btn-primary w-full" disabled={isSigningUp}>
-              {isSigningUp?(
+              {isSigningUp ? (
                 <>
-                  <Loader2 className="size-5 animate-spin"/>
+                  <Loader2 className="size-5 animate-spin" />
                   Loading...
                 </>
-              ):(
+              ) : (
                 "Create Account"
               )}
             </button>

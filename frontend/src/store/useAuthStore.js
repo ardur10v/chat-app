@@ -3,7 +3,7 @@ import { axiosInstance } from "../lib/axios"
 import { toast } from "react-hot-toast"
 import { io } from "socket.io-client";
 
-const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001/api" : "wss://chatx-zdke.onrender.com"
+const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001/" : "wss://chatx-zdke.onrender.com"
 
 
 export const useAuthStore = create((set, get) => ({
@@ -86,8 +86,8 @@ export const useAuthStore = create((set, get) => ({
             query: {
                 userId: authUser._id,
             },
-            transports:["websocket"],
-            withCredentials:true,
+            transports: ["websocket"],
+            withCredentials: true,
         })
         socket.connect()
         set({ socket: socket });
