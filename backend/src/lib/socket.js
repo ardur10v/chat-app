@@ -13,22 +13,26 @@ const io = new Server(server, {
 })
 
 export function getReceiverSocketId(userId) {
-    return userSocketMap[userId]
+    return userSocketMap(userId);
 }
 //to store online users
 //{userId:socketId}
-const userSocketMap = {};
+const userSocketMap = new Map();
 
 io.on("connection", (socket) => {
     console.log("User connected", socket.id);
-    const userId = socket.handshake.query.userId
-    if (userId) {
-        userSocketMap[userId] = socket.id
-    }
-    io.emit("getOnlineUsers", Object.keys(userSocketMap));
+    const userId = socket.userId;
+    if (!userSocketMap.has(userId)) userSocketMap.set(userId, new Set());
+    userSocketMap.get(userId).add(socket.id);
+
+    io.emit("getOnlineUsers", [...userSocketMap.keys()]);
     socket.on("disconnect", () => {
-        console.log("User disconnected", socket.id)
-        delete userSocketMap[userId];
-    })
+        const sockets = userSocketMap.get(userId);
+        if (sockets) {
+            sockets.delete(socket.id);
+            if (sockets.size === 0) userSocketMap.delete(userId);
+        }
+        io.emit("getOnineUsers", [...userSocketMap.keys()]);
+    });
 })
 export { io, app, server };

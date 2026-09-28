@@ -50,10 +50,16 @@ export const sendMessages = async (req, res) => {
             text,
             image: imageUrl
         })
+        if (!text?.trim() && !image) {
+            return res.status(400).json({ message: "Message must contain text or an image" });
+        }
+
         await newMessage.save()
-        const receiverSocketId = getReceiverSocketId(receiverId);
-        if (receiverSocketId) {
-            io.to(receiverSocketId).emit("newMessage", newMessage);
+        const receiverSocketIds = getReceiverSocketId(receiverId);
+        if (receiverSocketIds) {
+            receiverSocketIds.forEach((socketId) => {
+                io.to(socketId).emit("newMessage", newMessage);
+            });
         }
         res.status(201).json(newMessage);
     } catch (error) {
